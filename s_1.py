@@ -22,7 +22,9 @@ def __ping(adres: str, encode: str) -> None:
 
     for line in subprocess_ping.stdout:
         default_encoding = chardet.detect(line)
-        line = line.decode(default_encoding.get('encoding')).encode(encoding)
+        if default_encoding.get('encoding') != encoding:
+            line = line.decode(default_encoding.get('encoding')).encode(encoding)
+            print(line.decode(encoding))
         print(line.decode(encoding))
 
 
