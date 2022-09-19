@@ -10,22 +10,18 @@ def __var_info(var) -> None:
     print(f'Type: {type(var)}\n Var: {var}\n Lenth: {len(var)}')
 
 
-def __ping(adres: str, encode: str) -> None:
+def __ping(adres: str) -> None:
     """
-    Принимает на вход адрес веб-ресурса и тип кодировки,
-    пингует указанный в адресе ресурс и выводит результаты в указанной кодировке
+    Принимает на вход адрес веб-ресурса,
+    пингует указанный в адресе ресурс и выводит результаты
     """
-    encoding = encode.lower()
     args = ['ping']
     args.append(adres)
     subprocess_ping = subprocess.Popen(args, stdout=subprocess.PIPE)
 
     for line in subprocess_ping.stdout:
         default_encoding = chardet.detect(line)
-        if default_encoding.get('encoding') != encoding:
-            line = line.decode(default_encoding.get('encoding')).encode(encoding)
-            print(line.decode(encoding))
-        print(line.decode(encoding))
+        print(line.decode(default_encoding.get('encoding')))
 
 
 if __name__ == '__main__':
@@ -89,7 +85,8 @@ if __name__ == '__main__':
     Выполнить пинг веб-ресурсов yandex.ru, youtube.com и преобразовать результаты из
     байтовового в строковый тип на кириллице.
     """
-    __ping('yandex.ru', 'UTF-8')
+    __ping('yandex.ru')
+    __ping('youtube.com')
 
     print('6. ---------------------------------------------------->')
     """
