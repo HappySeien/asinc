@@ -23,10 +23,9 @@ class Client:
 
     def parse_response(self, response):
         resp = response.decode(s.ENCODING_)
-        print(resp)
+        # print(resp)
         parsed_response = s.MessageBuilder.get_object_of_json(resp)
-        print(parsed_response.response)
-        print(parsed_response.alert)
+        print(f'Статус: {parsed_response.response}, {parsed_response.alert}')
         return parsed_response.response, parsed_response.alert
 
     def send_message(self, type='presence'):
