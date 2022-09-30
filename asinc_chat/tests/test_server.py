@@ -15,3 +15,9 @@ class TestServer(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.server_.close()
+
+
+
+if __name__ == '__main__':
+    unittest.main()
+    
