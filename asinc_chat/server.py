@@ -52,6 +52,9 @@ class Server:
                     except:
                         self.connections.remove(c)
 
+    def close(self):
+        self._server_socket.close()
+
 
 if __name__ == '__main__':
     args = s.parse_cli_arguments(DESC)

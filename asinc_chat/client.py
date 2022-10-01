@@ -42,6 +42,9 @@ class Client:
             response = self._client_socket.recv(s.BLOCK_LEN)
             response, alert = self.parse_response(response)
 
+    def close(self):
+        self._client_socket.close()
+
 
 if __name__ == '__main__':
     args = s.parse_cli_arguments(DESC)

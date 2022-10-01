@@ -1,6 +1,7 @@
 import unittest
-from server import Server, DESC
+from server import DESC
 from client import Client
+from services.JIMProtocol import MessageBuilder
 from services.parse_cli_arguments import parse_cli_arguments
 
 
@@ -8,22 +9,18 @@ class TestServer(unittest.TestCase):
     """
     Тестирование сервера
     """
-    args = parse_cli_arguments(DESC)
-    server_ = Server(host=args.host, port=args.port)
-    client_ = Client(host=args.host, port=args.port)
 
     def setUp(self) -> None:
-        self.server_.run()
+        self.args = parse_cli_arguments(DESC)
 
     def tearDown(self) -> None:
-        self.server_.close()
+        pass
 
     def test_parse_message(self):
         pass
 
     def test_send_response(self):
-        pass
-
+        pass 
 
 
 if __name__ == '__main__':
