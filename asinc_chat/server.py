@@ -1,4 +1,4 @@
-import services as s
+import asinc_chat.services as s
 
 DESC = 'Server'
 

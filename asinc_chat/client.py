@@ -1,4 +1,4 @@
-import services as s
+import asinc_chat.services as s
 
 DESC = 'Client'
 
@@ -41,9 +41,6 @@ class Client:
             self.send_message('presence')
             response = self._client_socket.recv(s.BLOCK_LEN)
             response, alert = self.parse_response(response)
-
-    def close(self):
-        self._client_socket.close()
 
 
 if __name__ == '__main__':
