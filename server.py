@@ -1,6 +1,10 @@
-import services as s
+import asinc_chat.services as s
+
+import logging
+from asinc_chat.log import server_log_config
 
 DESC = 'Server'
+LOG = logging.getLogger('server')
 
 
 class Server:
@@ -51,6 +55,9 @@ class Server:
                             self.send_responce(client=c, code=200, alert=f'{parsed_message.user.name} в настоящее время присутствует')
                     except:
                         self.connections.remove(c)
+
+    def close(self):
+        self._server_socket.close()
 
 
 if __name__ == '__main__':
