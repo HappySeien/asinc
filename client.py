@@ -20,11 +20,13 @@ class Client:
     def __del__(self):
         self._client_socket.close()
 
+    @s.Log(LOG)
     def get_data(self):
         data = None
         while data is None:
             data = self._client_socket.recv(s.BLOCK_LEN)
 
+    @s.Log(LOG)
     def parse_response(self, response):
         resp = response.decode(s.ENCODING_)
         # print(resp)
@@ -32,6 +34,7 @@ class Client:
         print(f'Статус: {parsed_response.response}, {parsed_response.alert}')
         return parsed_response.response, parsed_response.alert
 
+    @s.Log(LOG)
     def send_message(self, type='presence'):
         if self.login is None:
             #self.login = input("Login:")
@@ -40,6 +43,7 @@ class Client:
         gen_message_json = gen_message.encode_to_json()
         self._client_socket.send(gen_message_json.encode(s.ENCODING_))
 
+    @s.Log(LOG)
     def run(self):
         while True:
             self.send_message('presence')
