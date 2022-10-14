@@ -20,17 +20,20 @@ class Server:
          self._server_socket.settimeout(0.5)
          print(f'Сервер запущен по адресу {host}:{port}')
 
+    @s.Log(LOG)
     def parse_message(self, message):
         msg = message.decode(s.ENCODING_)
         print(msg)
         parsed_msg = s.MessageBuilder.get_object_of_json(msg)
         return parsed_msg
 
+    @s.Log(LOG)
     def send_responce(self, client, code, alert=None):
         gen_response = s.MessageBuilder.create_response_message(code, alert)
         gen_response_json = gen_response.encode_to_json()
         client.send(gen_response_json.encode(s.ENCODING_))
 
+    @s.Log(LOG)
     def run(self) -> None:
         while True:
             try:
