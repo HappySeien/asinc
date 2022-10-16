@@ -62,6 +62,70 @@ class MessageBuilder:
         )
 
     @staticmethod
+    def create_message_to_user(from_user, to_user, msg, time=time.ctime()):
+        return MessageBuilder(
+            {
+                'action': 'msg',
+                'time': time,
+                'to': to_user,
+                'from': from_user,
+                'message': msg
+            }
+        )
+
+    @staticmethod
+    def create_message_to_chat(from_user, msg, time=time.ctime()):
+        """
+        Формирует сообщение в чат
+
+        Args:
+            from_user (_type_): Пользователь отправивший сообщение
+            msg (_type_): Сообщение
+            time (_type_, optional): Время. Поумолчанию time.ctime().
+
+        Returns:
+            create_message_to_chat (type = MessageBuilder)
+        """
+        return MessageBuilder(
+            {
+                'action': 'msg',
+                'time': time,
+                'to': 'ALL',  # вообще-то здесь указывается room name,
+                              # пока упрощенный чат в котором участвуют все подключенные
+                'from': from_user,
+                'message': msg
+            }
+        )
+
+    @staticmethod
+    def join_chat(from_user, room_name, time=time.ctime()):
+        """
+        Присоединиться к чату
+        """
+        return MessageBuilder(
+            {
+                'action': 'join',
+                'time': time,
+                'from': from_user,
+                'room': room_name
+            }
+        )
+
+    @staticmethod
+    def leave_chat(from_user, room_name, time=time.ctime()):
+        """
+        Покинуть чат
+        """
+        return MessageBuilder(
+            {
+                'action': 'leave',
+                'time': time,
+                'from': from_user,
+                'room': room_name
+            }
+        )
+
+    @staticmethod
     def create_response_message(code, alert=None):
         """
         Формирует сообщение ответа сервера (response message)
