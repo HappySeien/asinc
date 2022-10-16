@@ -67,8 +67,11 @@ class MessageBuilder:
             {
                 'action': 'msg',
                 'time': time,
-                'to': to_user,
-                'from': from_user,
+                'to_user': to_user,
+                'from_user': {
+                    'name': from_user,
+                    'status': 'here'
+                },
                 'message': msg
             }
         )
@@ -90,9 +93,12 @@ class MessageBuilder:
             {
                 'action': 'msg',
                 'time': time,
-                'to': 'ALL',  # вообще-то здесь указывается room name,
+                'to_user': 'ALL',  # вообще-то здесь указывается room name,
                               # пока упрощенный чат в котором участвуют все подключенные
-                'from': from_user,
+                'from_user': {
+                    'name': from_user,
+                    'status': 'here'
+                },
                 'message': msg
             }
         )
