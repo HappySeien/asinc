@@ -58,7 +58,9 @@ class Server:
                     parsed_message = self.parse_message(data)
                     try:
                         if parsed_message.action == 'presence' and (c in write_):
-                            self.send_responce(client=c, code=200, alert=f'{parsed_message.user.name} в настоящее время присутствует')
+                            # self.send_responce(client=c, code=200, alert=f'{parsed_message.user.name} в настоящее время присутствует')
+                            # Временная мера
+                            self.send_responce(client=c, code=200, alert=f'{parsed_message.user.name} подключился к чату', all=True)
                         if (parsed_message.action == 'msg' and parsed_message.to_user == 'ALL') and (c in write_):
                             self.send_responce(client=c, code=200, alert=f'{parsed_message.from_user.name}: {parsed_message.message}', all=True)
                     except:

@@ -65,12 +65,11 @@ class Client:
         th_sender.daemon = True
         th_sender.start()
         while True:
-            msg = input('Message: ')
+            msg = input('> ')
             if msg == '/q':
                 break
             self.send_message(type='chat', msg=msg)
                   
-
 
 if __name__ == '__main__':
     args = s.parse_cli_arguments(DESC)
