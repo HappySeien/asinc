@@ -28,9 +28,12 @@ class Server:
         return parsed_msg
 
     @s.Log(LOG)
-    def send_responce(self, client, code, alert=None):
+    def send_responce(self, client, code, alert=None, all=False):
         gen_response = s.MessageBuilder.create_response_message(code, alert)
         gen_response_json = gen_response.encode_to_json()
+        if all:
+            for c in self.connections:
+                c.sendall(gen_response_json.encode(s.ENCODING_))
         client.send(gen_response_json.encode(s.ENCODING_))
 
     @s.Log(LOG)
@@ -55,7 +58,11 @@ class Server:
                     parsed_message = self.parse_message(data)
                     try:
                         if parsed_message.action == 'presence' and (c in write_):
-                            self.send_responce(client=c, code=200, alert=f'{parsed_message.user.name} в настоящее время присутствует')
+                            # self.send_responce(client=c, code=200, alert=f'{parsed_message.user.name} в настоящее время присутствует')
+                            # Временная мера
+                            self.send_responce(client=c, code=200, alert=f'{parsed_message.user.name} подключился к чату', all=True)
+                        if (parsed_message.action == 'msg' and parsed_message.to_user == 'ALL') and (c in write_):
+                            self.send_responce(client=c, code=200, alert=f'{parsed_message.from_user.name}: {parsed_message.message}', all=True)
                     except:
                         self.connections.remove(c)
 

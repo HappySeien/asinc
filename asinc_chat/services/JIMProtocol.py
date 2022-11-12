@@ -62,6 +62,76 @@ class MessageBuilder:
         )
 
     @staticmethod
+    def create_message_to_user(from_user, to_user, msg, time=time.ctime()):
+        return MessageBuilder(
+            {
+                'action': 'msg',
+                'time': time,
+                'to_user': to_user,
+                'from_user': {
+                    'name': from_user,
+                    'status': 'here'
+                },
+                'message': msg
+            }
+        )
+
+    @staticmethod
+    def create_message_to_chat(from_user, msg, time=time.ctime()):
+        """
+        Формирует сообщение в чат
+
+        Args:
+            from_user (_type_): Пользователь отправивший сообщение
+            msg (_type_): Сообщение
+            time (_type_, optional): Время. Поумолчанию time.ctime().
+
+        Returns:
+            create_message_to_chat (type = MessageBuilder)
+        """
+        return MessageBuilder(
+            {
+                'action': 'msg',
+                'time': time,
+                'to_user': 'ALL',  # вообще-то здесь указывается room name,
+                              # пока упрощенный чат в котором участвуют все подключенные
+                'from_user': {
+                    'name': from_user,
+                    'status': 'here'
+                },
+                'message': msg
+            }
+        )
+
+    @staticmethod
+    def join_chat(from_user, room_name, time=time.ctime()):
+        """
+        Присоединиться к чату
+        """
+        return MessageBuilder(
+            {
+                'action': 'join',
+                'time': time,
+                'from': from_user,
+                'room': room_name
+            }
+        )
+
+    @staticmethod
+    def leave_chat(from_user, room_name, time=time.ctime()):
+        """
+        Покинуть чат
+        """
+        return MessageBuilder(
+            {
+                'action': 'leave',
+                'time': time,
+                'from': from_user,
+                'room': room_name
+            }
+        )
+
+    @staticmethod
     def create_response_message(code, alert=None):
         """
         Формирует сообщение ответа сервера (response message)
