@@ -4,6 +4,10 @@ from threading import Thread
 import logging
 from asinc_chat.log import client_log_config
 
+from asinc_chat.ui.py_form import Ui_MainWindow
+import sys
+from PyQt5 import QtWidgets
+
 DESC = 'Client'
 LOG = logging.getLogger('client')
 
@@ -75,3 +79,10 @@ if __name__ == '__main__':
     args = s.parse_cli_arguments(DESC)
     client_ = Client(host=args.host, port=args.port)
     client_.run()
+    app = QtWidgets.QApplication(sys.argv)
+    window = QtWidgets.QWidget()
+    ui = py_form.Ui_TestForm()
+    ui.setupUi(window)
+    ui.btnQuit.clicked.connect(QtWidgets.qApp.quit)
+    window.show()
+    sys.exit(app.exec_())
