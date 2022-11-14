@@ -81,7 +81,7 @@ if __name__ == '__main__':
     client_.run()
     app = QtWidgets.QApplication(sys.argv)
     window = QtWidgets.QWidget()
-    ui = py_form.Ui_TestForm()
+    ui = Ui_MainWindow()
     ui.setupUi(window)
     ui.btnQuit.clicked.connect(QtWidgets.qApp.quit)
     window.show()
