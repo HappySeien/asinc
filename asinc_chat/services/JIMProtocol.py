@@ -140,3 +140,45 @@ class MessageBuilder:
         :return: response message (type = MessageBuilder)
         """
         return MessageBuilder({'response': code, 'alert': alert})
+
+    @staticmethod
+    def get_contact_list(login, time=time.ctime()):
+        """
+        Получение списка контактов
+        """
+        return MessageBuilder(
+            {
+                'action': 'get_contacts',
+                'time': time,
+                'user_login': login
+            }
+        )
+
+    @staticmethod
+    def add_contact(login, user_id, time=time.ctime()):
+        """
+        Добавление контакта
+        """
+        return MessageBuilder(
+            {
+                'action': 'add_contact',
+                'user_id': user_id,
+                'time': time,
+                'user_login': login
+
+            }
+        )
+
+    @staticmethod
+    def dell_contact(login, user_id, time=time.ctime()):
+        """
+        Удалние контакта
+        """
+        return MessageBuilder(
+            {
+                'action': 'del_contact',
+                'user_id': user_id,
+                'time': time,
+                'user_login': login
+            }
+        )
